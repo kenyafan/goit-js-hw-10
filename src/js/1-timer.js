@@ -2,7 +2,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
+import icon from '../images/Error.svg';
 const refs = {
   startBtn: document.querySelector('[data-start]'),
   days: document.querySelector('[data-days]'),
@@ -36,17 +36,10 @@ let timerId = null;
 
 const flatpickrInstance = flatpickr('#datetime-picker', options);
 
+refs.startBtn.disabled = true;
 refs.startBtn.addEventListener('click', onStartBtnClick);
 
 function onStartBtnClick() {
-  if (!userSelectedDate) {
-    iziToast.error({
-      message: 'Please choose a date',
-      position: 'topRight',
-    });
-    return;
-  }
-
   refs.startBtn.disabled = true;
   refs.datetimePicker.disabled = true;
 
@@ -55,6 +48,7 @@ function onStartBtnClick() {
 
     if (deltaTime <= 0) {
       clearInterval(timerId);
+      refs.datetimePicker.disabled = false;
       return;
     }
 
@@ -65,10 +59,10 @@ function onStartBtnClick() {
 function updateTimerFace(time) {
   const timeComponents = convertMs(time);
 
-  refs.days.textContent = addLeadingZero(timeComponents.days);
-  refs.hours.textContent = addLeadingZero(timeComponents.hours);
-  refs.minutes.textContent = addLeadingZero(timeComponents.minutes);
-  refs.seconds.textContent = addLeadingZero(timeComponents.seconds);
+  refs.days.textContent = addZero(timeComponents.days);
+  refs.hours.textContent = addZero(timeComponents.hours);
+  refs.minutes.textContent = addZero(timeComponents.minutes);
+  refs.seconds.textContent = addZero(timeComponents.seconds);
 }
 
 function convertMs(ms) {
@@ -85,6 +79,23 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function addLeadingZero(value) {
+function addZero(value) {
   return String(value).padStart(2, '0');
 }
+
+iziToast.settings({
+  timeout: 10000,
+  resetOnHover: true,
+  backgroundColor: '#ef4040',
+
+  messageColor: '#fff',
+  messageSize: '16px',
+  messageLineHeight: '1.5',
+
+  iconUrl: icon,
+
+  title: 'Error',
+  titleColor: '#fff',
+  titleSize: '16px',
+  titleLineHeight: '1.5',
+});
