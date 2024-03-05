@@ -5,11 +5,11 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const refs = {
   startBtn: document.querySelector('[data-start]'),
-  datetimePicker: document.querySelector('#datetime-picker'),
   days: document.querySelector('[data-days]'),
   hours: document.querySelector('[data-hours]'),
   minutes: document.querySelector('[data-minutes]'),
   seconds: document.querySelector('[data-seconds]'),
+  datetimePicker: document.querySelector('#datetime-picker'),
 };
 
 const options = {
@@ -39,6 +39,14 @@ const flatpickrInstance = flatpickr('#datetime-picker', options);
 refs.startBtn.addEventListener('click', onStartBtnClick);
 
 function onStartBtnClick() {
+  if (!userSelectedDate) {
+    iziToast.error({
+      message: 'Please choose a date',
+      position: 'topRight',
+    });
+    return;
+  }
+
   refs.startBtn.disabled = true;
   refs.datetimePicker.disabled = true;
 
