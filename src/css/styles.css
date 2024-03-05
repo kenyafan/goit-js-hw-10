@@ -185,15 +185,6 @@ button[data-start]:disabled {
 
 /* #endregion */
 
-/* #region  iziToast  */
-.iziToast > .iziToast-close {
-  background-color: #fff;
-}
-.iziToast > .iziToast-progressbar > div {
-  background-color: #b51b1b !important;
-}
-/* #endregion */
-
 /* #region Snackbar */
 a {
   margin-bottom: 20px;

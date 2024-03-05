@@ -87,6 +87,7 @@ iziToast.settings({
   timeout: 10000,
   resetOnHover: true,
   backgroundColor: '#ef4040',
+  progressBarColor: '#b51b1b',
 
   messageColor: '#fff',
   messageSize: '16px',
